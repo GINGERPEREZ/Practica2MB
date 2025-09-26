@@ -1,6 +1,6 @@
-import { UsuarioRepositoryInMemory } from '../infrastructure/repositories/UsuarioRepositoryInMemory';
-import { UsuarioService } from '../application/services/UsuarioService';
-import { UsuarioController } from '../presentation/controllers/UsuarioController';
+import { UsuarioRepositoryInMemory } from "../infrastructure/repositories/UsuarioRepositoryInMemory";
+import { UsuarioService } from "../application/services/UsuarioService";
+import { UsuarioController } from "../presentation/controllers/UsuarioController";
 
 export class Container {
   private static instance: Container;
@@ -39,4 +39,3 @@ export class Container {
     return this.usuarioController;
   }
 }
-

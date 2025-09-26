@@ -1,4 +1,4 @@
-export type Rol = 'admin' | 'editor' | 'visitante';
+export type Rol = "admin" | "editor" | "visitante";
 
 export interface Usuario {
   id: string;
@@ -8,7 +8,7 @@ export interface Usuario {
   activo: boolean;
 }
 
-export class UsuarioEntity  {
+export class UsuarioEntity {
   public readonly id: string;
   public nombre: string;
   public email: string;
@@ -33,19 +33,19 @@ export class UsuarioEntity  {
 
   private validar(): void {
     if (!this.id) {
-      throw new Error('El ID del usuario es requerido');
+      throw new Error("El ID del usuario es requerido");
     }
 
     if (!this.nombre || this.nombre.trim().length === 0) {
-      throw new Error('El nombre del usuario es requerido');
+      throw new Error("El nombre del usuario es requerido");
     }
 
     if (!this.email || !this.validarEmail(this.email)) {
-      throw new Error('El email del usuario debe ser válido');
+      throw new Error("El email del usuario debe ser válido");
     }
 
-    if (!['admin', 'editor', 'visitante'].includes(this.rol)) {
-      throw new Error('El rol debe ser admin, editor o visitante');
+    if (!["admin", "editor", "visitante"].includes(this.rol)) {
+      throw new Error("El rol debe ser admin, editor o visitante");
     }
   }
 
@@ -56,21 +56,21 @@ export class UsuarioEntity  {
 
   public actualizarNombre(nuevoNombre: string): void {
     if (!nuevoNombre || nuevoNombre.trim().length === 0) {
-      throw new Error('El nombre no puede estar vacío');
+      throw new Error("El nombre no puede estar vacío");
     }
     this.nombre = nuevoNombre;
   }
 
   public actualizarEmail(nuevoEmail: string): void {
     if (!nuevoEmail || !this.validarEmail(nuevoEmail)) {
-      throw new Error('El email debe ser válido');
+      throw new Error("El email debe ser válido");
     }
     this.email = nuevoEmail;
   }
 
   public actualizarRol(nuevoRol: Rol): void {
-    if (!['admin', 'editor', 'visitante'].includes(nuevoRol)) {
-      throw new Error('El rol debe ser admin, editor o visitante');
+    if (!["admin", "editor", "visitante"].includes(nuevoRol)) {
+      throw new Error("El rol debe ser admin, editor o visitante");
     }
     this.rol = nuevoRol;
   }
@@ -89,9 +89,7 @@ export class UsuarioEntity  {
       nombre: this.nombre,
       email: this.email,
       rol: this.rol,
-      activo: this.activo
+      activo: this.activo,
     };
   }
 }
-
-

@@ -1,7 +1,7 @@
-import { UsuarioService } from '../../application/services/UsuarioService';
-import { Usuario } from '../../domain/entities/Usuario';
-import { ActualizarUsuarioData } from '../dto/usuario/actualizar_usuario_dto';
-import { CrearUsuarioData } from '../dto/usuario/crear_usuario_dto';
+import { UsuarioService } from "../../application/services/UsuarioService";
+import { Usuario } from "../../domain/entities/Usuario";
+import { ActualizarUsuarioData } from "../dto/usuario/actualizar_usuario_dto";
+import { CrearUsuarioData } from "../dto/usuario/crear_usuario_dto";
 
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
@@ -29,7 +29,7 @@ export class UsuarioController {
     try {
       return await this.usuarioService.obtenerUsuarioPorId(id);
     } catch (error) {
-      console.error('Error al obtener usuario por ID:', error);
+      console.error("Error al obtener usuario por ID:", error);
       throw error;
     }
   }
@@ -38,19 +38,21 @@ export class UsuarioController {
     try {
       return await this.usuarioService.obtenerUsuariosActivos();
     } catch (error) {
-      console.error('Error al obtener usuarios activos:', error);
+      console.error("Error al obtener usuarios activos:", error);
       throw error;
     }
   }
 
   // DELETE - Usando Async/Await
-  async eliminarUsuario(id: string, eliminacionFisica: boolean = false): Promise<boolean> {
+  async eliminarUsuario(
+    id: string,
+    eliminacionFisica: boolean = false
+  ): Promise<boolean> {
     try {
       return await this.usuarioService.eliminarUsuario(id, eliminacionFisica);
     } catch (error) {
-      console.error('Error al eliminar usuario:', error);
+      console.error("Error al eliminar usuario:", error);
       throw error;
     }
   }
 }
-
