@@ -1,46 +1,36 @@
-import { Usuario, UsuarioEntity } from "../../domain/entities/Usuario";
+import { Usuario } from "../../domain/entities/Usuario";
 import { IUsuarioRepository } from "../../domain/repositories/IUsuarioRepository";
 import { ActualizarUsuarioData } from "../../presentation/dto/usuario/actualizar_usuario_dto";
 import { CrearUsuarioData } from "../../presentation/dto/usuario/crear_usuario_dto";
+import { CrearUsuarioUseCase } from "../usecases/CrearUsuarioUseCase";
+import { ActualizarUsuarioUseCase } from "../usecases/ActualizarUsuarioUseCase";
+import { ObtenerUsuarioPorIdUseCase } from "../usecases/ObtenerUsuarioPorIdUseCase";
+import { ListarUsuariosActivosUseCase } from "../usecases/ListarUsuariosActivosUseCase";
+import { EliminarUsuarioUseCase } from "../usecases/EliminarUsuarioUseCase";
 
+// DEPRECADO: Mantenido por compatibilidad. Internamente delega en casos de uso.
 export class UsuarioService {
-  constructor(private readonly usuarioRepository: IUsuarioRepository) {}
+  private readonly crearUC: CrearUsuarioUseCase;
+  private readonly actualizarUC: ActualizarUsuarioUseCase;
+  private readonly obtenerPorIdUC: ObtenerUsuarioPorIdUseCase;
+  private readonly listarActivosUC: ListarUsuariosActivosUseCase;
+  private readonly eliminarUC: EliminarUsuarioUseCase;
+
+  constructor(private readonly usuarioRepository: IUsuarioRepository) {
+    this.crearUC = new CrearUsuarioUseCase(usuarioRepository);
+    this.actualizarUC = new ActualizarUsuarioUseCase(usuarioRepository);
+    this.obtenerPorIdUC = new ObtenerUsuarioPorIdUseCase(usuarioRepository);
+    this.listarActivosUC = new ListarUsuariosActivosUseCase(usuarioRepository);
+    this.eliminarUC = new EliminarUsuarioUseCase(usuarioRepository);
+  }
 
   // CREATE - Usando Callbacks
   crearUsuario(
     data: CrearUsuarioData,
     callback: (error: Error | null, resultado: Usuario | null) => void
   ): void {
-    try {
-      // Validar datos antes de crear
-      if (!data.nombre || data.nombre.trim().length === 0) {
-        callback(new Error("El nombre es requerido"), null);
-        return;
-      }
-
-      if (!data.email) {
-        callback(new Error("El email es requerido"), null);
-        return;
-      }
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(data.email)) {
-        callback(new Error("El email debe tener un formato válido"), null);
-        return;
-      }
-
-      if (!["admin", "editor", "visitante"].includes(data.rol)) {
-        callback(new Error("El rol debe ser admin, editor o visitante"), null);
-        return;
-      }
-
-      // Simular latencia de red con setTimeout
-      setTimeout(() => {
-        this.usuarioRepository.crear(data, callback);
-      }, 100);
-    } catch (error) {
-      callback(error as Error, null);
-    }
+    // delega al caso de uso (manteniendo callbacks)
+    this.crearUC.execute(data, callback);
   }
 
   // UPDATE - Retornando Promise<Usuario>
@@ -49,43 +39,16 @@ export class UsuarioService {
     data: ActualizarUsuarioData
   ): Promise<Usuario> {
     // Validar existencia del registro
-    const usuarioExistente = await this.usuarioRepository.obtenerPorId(id);
-    if (!usuarioExistente) {
-      throw new Error(`Usuario con ID ${id} no encontrado`);
-    }
-
-    // Aplicar validaciones a los campos que se van a actualizar
-    if (
-      data.nombre !== undefined &&
-      (!data.nombre || data.nombre.trim().length === 0)
-    ) {
-      throw new Error("El nombre no puede estar vacío");
-    }
-
-    if (data.email !== undefined) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@@]+\.[^\s@]+$/;
-      if (!data.email || !emailRegex.test(data.email)) {
-        throw new Error("El email debe tener un formato válido");
-      }
-    }
-
-    if (
-      data.rol !== undefined &&
-      !["admin", "editor", "visitante"].includes(data.rol)
-    ) {
-      throw new Error("El rol debe ser admin, editor o visitante");
-    }
-
-    return this.usuarioRepository.actualizar(id, data);
+    return this.actualizarUC.execute(id, data);
   }
 
   // READ - Async functions
   async obtenerUsuarioPorId(id: string): Promise<Usuario | null> {
-    return this.usuarioRepository.obtenerPorId(id);
+    return this.obtenerPorIdUC.execute(id);
   }
 
   async obtenerUsuariosActivos(): Promise<Usuario[]> {
-    return this.usuarioRepository.obtenerTodosActivos();
+    return this.listarActivosUC.execute();
   }
 
   // DELETE - Async function retornando Promise<boolean>
@@ -93,12 +56,6 @@ export class UsuarioService {
     id: string,
     eliminacionFisica: boolean = false
   ): Promise<boolean> {
-    // Validar existencia antes de eliminar
-    const usuario = await this.usuarioRepository.obtenerPorId(id);
-    if (!usuario) {
-      throw new Error(`Usuario con ID ${id} no encontrado`);
-    }
-
-    return this.usuarioRepository.eliminar(id, eliminacionFisica);
+    return this.eliminarUC.execute(id, eliminacionFisica);
   }
 }

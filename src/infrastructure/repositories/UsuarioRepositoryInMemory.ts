@@ -11,7 +11,7 @@ export class UsuarioRepositoryInMemory implements IUsuarioRepository {
   }
 
   private inicializarDatosDePrueba(): void {
-    const usuariosDePrueba: Usuario[] = [
+  const usuariosDePrueba: Usuario[] = [
       {
         id: "550e8400-e29b-41d4-a716-446655440001",
         nombre: "Juan Pérez",
@@ -46,6 +46,41 @@ export class UsuarioRepositoryInMemory implements IUsuarioRepository {
         email: "pedro.sanchez@example.com",
         rol: "visitante",
         activo: false,
+      },
+      {
+        id: "550e8400-e29b-41d4-a716-446655440006",
+        nombre: "Lucía Fernández",
+        email: "lucia.fernandez@example.com",
+        rol: "admin",
+        activo: true,
+      },
+      {
+        id: "550e8400-e29b-41d4-a716-446655440007",
+        nombre: "Miguel Torres",
+        email: "miguel.torres@example.com",
+        rol: "visitante",
+        activo: true,
+      },
+      {
+        id: "550e8400-e29b-41d4-a716-446655440008",
+        nombre: "Sofía Herrera",
+        email: "sofia.herrera@example.com",
+        rol: "editor",
+        activo: true,
+      },
+      {
+        id: "550e8400-e29b-41d4-a716-446655440009",
+        nombre: "Diego Morales",
+        email: "diego.morales@example.com",
+        rol: "visitante",
+        activo: false,
+      },
+      {
+        id: "550e8400-e29b-41d4-a716-446655440010",
+        nombre: "Valentina Ruiz",
+        email: "valentina.ruiz@example.com",
+        rol: "admin",
+        activo: true,
       },
     ];
 
