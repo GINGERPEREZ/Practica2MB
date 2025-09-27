@@ -1,6 +1,8 @@
 import { Usuario } from "../../domain/entities/Usuario";
-import { ActualizarUsuarioData } from "../dto/usuario/actualizar_usuario_dto";
-import { CrearUsuarioData } from "../dto/usuario/crear_usuario_dto";
+import {
+  UsuarioCreate,
+  UsuarioUpdate,
+} from "../../domain/repositories/IUsuarioRepository";
 import { CrearUsuarioUseCase } from "../../application/usecases/CrearUsuarioUseCase";
 import { ActualizarUsuarioUseCase } from "../../application/usecases/ActualizarUsuarioUseCase";
 import { ObtenerUsuarioPorIdUseCase } from "../../application/usecases/ObtenerUsuarioPorIdUseCase";
@@ -17,7 +19,7 @@ export class UsuarioController {
   ) {}
 
   // CREATE - mantiene callbacks por requisito
-  crearUsuario(data: CrearUsuarioData): Promise<Usuario> {
+  crearUsuario(data: UsuarioCreate): Promise<Usuario> {
     return new Promise((resolve, reject) => {
       this.crearUsuarioUseCase.execute(data, (error, resultado) => {
         if (error) return reject(error);
@@ -27,7 +29,7 @@ export class UsuarioController {
   }
 
   // UPDATE - Promises
-  actualizarUsuario(id: string, data: ActualizarUsuarioData): Promise<Usuario> {
+  actualizarUsuario(id: string, data: UsuarioUpdate): Promise<Usuario> {
     return this.actualizarUsuarioUseCase.execute(id, data);
   }
 
