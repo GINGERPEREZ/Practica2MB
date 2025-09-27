@@ -6,8 +6,8 @@ import { ObtenerUsuarioPorIdUseCase } from "../application/usecases/ObtenerUsuar
 import { ListarUsuariosActivosUseCase } from "../application/usecases/ListarUsuariosActivosUseCase";
 import { EliminarUsuarioUseCase } from "../application/usecases/EliminarUsuarioUseCase";
 
-export class Container {
-  private static instance: Container;
+export class UserContainer {
+  private static instance: UserContainer;
   private readonly usuarioRepository: UsuarioRepositoryInMemory;
   private readonly usuarioController: UsuarioController;
   private readonly crearUsuarioUseCase: CrearUsuarioUseCase;
@@ -45,11 +45,11 @@ export class Container {
     );
   }
 
-  public static getInstance(): Container {
-    if (!Container.instance) {
-      Container.instance = new Container();
+  public static getInstance(): UserContainer {
+    if (!UserContainer.instance) {
+      UserContainer.instance = new UserContainer();
     }
-    return Container.instance;
+    return UserContainer.instance;
   }
 
   // Getters para acceder a las instancias

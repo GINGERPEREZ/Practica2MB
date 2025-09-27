@@ -1,10 +1,10 @@
-import { Container } from "./shared/container";
+import { UserContainer } from "./shared/container";
 
 async function main() {
   console.log("🚀 Sistema de Gestión de Usuarios");
   console.log("==================================\n");
 
-  const container = Container.getInstance();
+  const container = UserContainer.getInstance();
   const usuarioController = container.getUsuarioController();
 
   try {
