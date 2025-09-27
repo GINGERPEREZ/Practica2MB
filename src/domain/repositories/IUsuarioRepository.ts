@@ -1,16 +1,27 @@
-import { ActualizarUsuarioData } from "../../presentation/dto/usuario/actualizar_usuario_dto";
-import { CrearUsuarioData } from "../../presentation/dto/usuario/crear_usuario_dto";
-import { UsuarioEntity, Rol, Usuario } from "../entities/Usuario";
+import { Rol, Usuario } from "../entities/Usuario";
+
+export interface UsuarioCreate {
+  nombre: string;
+  email: string;
+  rol: Rol;
+}
+
+export interface UsuarioUpdate {
+  nombre?: string;
+  email?: string;
+  rol?: Rol;
+  activo?: boolean;
+}
 
 export interface IUsuarioRepository {
   // CREATE - Usando Callbacks (error, resultado)
   crear(
-    data: CrearUsuarioData,
+    data: UsuarioCreate,
     callback: (error: Error | null, resultado: Usuario | null) => void
   ): void;
 
   // UPDATE - Retornando Promise<Usuario>
-  actualizar(id: string, data: ActualizarUsuarioData): Promise<Usuario>;
+  actualizar(id: string, data: UsuarioUpdate): Promise<Usuario>;
 
   // READ - Async functions retornando Promise
   obtenerPorId(id: string): Promise<Usuario | null>;

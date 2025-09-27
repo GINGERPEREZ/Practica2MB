@@ -1,17 +1,19 @@
-import { Usuario, UsuarioEntity, Rol } from "../../domain/entities/Usuario";
-import { IUsuarioRepository } from "../../domain/repositories/IUsuarioRepository";
-import { ActualizarUsuarioData } from "../../presentation/dto/usuario/actualizar_usuario_dto";
-import { CrearUsuarioData } from "../../presentation/dto/usuario/crear_usuario_dto";
+import { Usuario } from "../../domain/entities/Usuario";
+import {
+  IUsuarioRepository,
+  UsuarioCreate,
+  UsuarioUpdate,
+} from "../../domain/repositories/IUsuarioRepository";
 
 export class UsuarioRepositoryInMemory implements IUsuarioRepository {
-  private usuarios: Map<string, Usuario> = new Map();
+  private readonly usuarios: Map<string, Usuario> = new Map();
 
   constructor() {
     this.inicializarDatosDePrueba();
   }
 
   private inicializarDatosDePrueba(): void {
-  const usuariosDePrueba: Usuario[] = [
+    const usuariosDePrueba: Usuario[] = [
       {
         id: "550e8400-e29b-41d4-a716-446655440001",
         nombre: "Juan Pérez",
@@ -102,7 +104,7 @@ export class UsuarioRepositoryInMemory implements IUsuarioRepository {
 
   // CREATE - Usando Callbacks
   crear(
-    data: CrearUsuarioData,
+    data: UsuarioCreate,
     callback: (error: Error | null, resultado: Usuario | null) => void
   ): void {
     try {
@@ -123,7 +125,7 @@ export class UsuarioRepositoryInMemory implements IUsuarioRepository {
   }
 
   // UPDATE - Retornando Promise<Usuario>
-  async actualizar(id: string, data: ActualizarUsuarioData): Promise<Usuario> {
+  async actualizar(id: string, data: UsuarioUpdate): Promise<Usuario> {
     const usuarioExistente = this.usuarios.get(id);
     if (!usuarioExistente) {
       throw new Error(`Usuario con ID ${id} no encontrado`);

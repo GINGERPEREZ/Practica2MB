@@ -1,18 +1,14 @@
-import { IUsuarioRepository } from "../../domain/repositories/IUsuarioRepository";
-import { Rol } from "../../domain/entities/Usuario";
-
-export interface CrearUsuarioInput {
-  nombre: string;
-  email: string;
-  rol: Rol;
-}
+import {
+  IUsuarioRepository,
+  UsuarioCreate,
+} from "../../domain/repositories/IUsuarioRepository";
 
 export class CrearUsuarioUseCase {
   constructor(private readonly usuarioRepository: IUsuarioRepository) {}
 
   // Callbacks: (error, resultado) con simulación de latencia
   execute(
-    data: CrearUsuarioInput,
+    data: UsuarioCreate,
     callback: (error: Error | null, resultado: any | null) => void
   ): void {
     try {

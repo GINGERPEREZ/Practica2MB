@@ -8,13 +8,13 @@ import { EliminarUsuarioUseCase } from "../application/usecases/EliminarUsuarioU
 
 export class Container {
   private static instance: Container;
-  private usuarioRepository: UsuarioRepositoryInMemory;
-  private usuarioController: UsuarioController;
-  private crearUsuarioUseCase: CrearUsuarioUseCase;
-  private actualizarUsuarioUseCase: ActualizarUsuarioUseCase;
-  private obtenerUsuarioPorIdUseCase: ObtenerUsuarioPorIdUseCase;
-  private listarUsuariosActivosUseCase: ListarUsuariosActivosUseCase;
-  private eliminarUsuarioUseCase: EliminarUsuarioUseCase;
+  private readonly usuarioRepository: UsuarioRepositoryInMemory;
+  private readonly usuarioController: UsuarioController;
+  private readonly crearUsuarioUseCase: CrearUsuarioUseCase;
+  private readonly actualizarUsuarioUseCase: ActualizarUsuarioUseCase;
+  private readonly obtenerUsuarioPorIdUseCase: ObtenerUsuarioPorIdUseCase;
+  private readonly listarUsuariosActivosUseCase: ListarUsuariosActivosUseCase;
+  private readonly eliminarUsuarioUseCase: EliminarUsuarioUseCase;
 
   private constructor() {
     // Infrastructure Layer
@@ -22,10 +22,18 @@ export class Container {
 
     // Application Layer - Use cases
     this.crearUsuarioUseCase = new CrearUsuarioUseCase(this.usuarioRepository);
-    this.actualizarUsuarioUseCase = new ActualizarUsuarioUseCase(this.usuarioRepository);
-    this.obtenerUsuarioPorIdUseCase = new ObtenerUsuarioPorIdUseCase(this.usuarioRepository);
-    this.listarUsuariosActivosUseCase = new ListarUsuariosActivosUseCase(this.usuarioRepository);
-    this.eliminarUsuarioUseCase = new EliminarUsuarioUseCase(this.usuarioRepository);
+    this.actualizarUsuarioUseCase = new ActualizarUsuarioUseCase(
+      this.usuarioRepository
+    );
+    this.obtenerUsuarioPorIdUseCase = new ObtenerUsuarioPorIdUseCase(
+      this.usuarioRepository
+    );
+    this.listarUsuariosActivosUseCase = new ListarUsuariosActivosUseCase(
+      this.usuarioRepository
+    );
+    this.eliminarUsuarioUseCase = new EliminarUsuarioUseCase(
+      this.usuarioRepository
+    );
 
     // Presentation Layer
     this.usuarioController = new UsuarioController(

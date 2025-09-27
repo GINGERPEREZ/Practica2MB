@@ -41,7 +41,10 @@ export class UsuarioController {
   }
 
   // DELETE - Async/Await
-  async eliminarUsuario(id: string, eliminacionFisica: boolean = false): Promise<boolean> {
+  async eliminarUsuario(
+    id: string,
+    eliminacionFisica: boolean = false
+  ): Promise<boolean> {
     return this.eliminarUsuarioUseCase.execute(id, eliminacionFisica);
   }
 }
