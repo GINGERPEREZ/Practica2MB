@@ -1,4 +1,4 @@
-import { UserContainer } from "./shared/container";
+import { UserContainer } from "./user/shared/container";
 
 async function main() {
   console.log("🚀 Sistema de Gestión de Usuarios");
