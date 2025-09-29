@@ -8,6 +8,7 @@ export interface RestauranteCreate {
   capacidadTotal: number;
   suscripcionId?: string | null;
   imagenId?: string | null;
+  eliminado?: boolean | null;
 }
 
 export interface RestauranteUpdate {
@@ -18,6 +19,7 @@ export interface RestauranteUpdate {
   capacidadTotal?: number;
   suscripcionId?: string | null;
   imagenId?: string | null;
+  eliminado?: boolean | null;
 }
 
 export interface IRestauranteRepository {

@@ -7,6 +7,7 @@ export interface Restaurante {
   capacidadTotal: number;
   suscripcionId?: string | null;
   imagenId?: string | null;
+  eliminado?: boolean | null;
 }
 
 export class RestauranteEntity {
@@ -17,6 +18,7 @@ export class RestauranteEntity {
   public horariosAtencion: string;
   public capacidadTotal: number;
   public suscripcionId?: string | null;
+  public eliminado?: boolean | null;
   public imagenId?: string | null;
 
   constructor(
@@ -29,6 +31,7 @@ export class RestauranteEntity {
       capacidadTotal: number;
       suscripcionId?: string | null;
       imagenId?: string | null;
+      eliminado?: boolean | null;
     }
   ) {
     this.id = id;
@@ -39,6 +42,7 @@ export class RestauranteEntity {
     this.capacidadTotal = props.capacidadTotal;
     this.suscripcionId = props.suscripcionId ?? null;
     this.imagenId = props.imagenId ?? null;
+    this.eliminado = props.eliminado ?? null;
 
     this.validar();
   }
@@ -167,6 +171,7 @@ export class RestauranteEntity {
       capacidadTotal: this.capacidadTotal,
       suscripcionId: this.suscripcionId ?? null,
       imagenId: this.imagenId ?? null,
+      eliminado: this.eliminado ?? null,
     };
   }
 }
