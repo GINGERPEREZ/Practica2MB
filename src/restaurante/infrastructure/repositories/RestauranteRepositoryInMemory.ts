@@ -1,10 +1,10 @@
 import { v7 as uuid } from "uuid";
-import { Restaurante } from "../../domain/entities/Restaurante";
 import {
-  IRestauranteRepository,
-  RestauranteCreate,
-  RestauranteUpdate,
-} from "../../domain/repositories/IRestauranteRepository";
+  Restaurante,
+  RestauranteCreateProps,
+  RestauranteUpdateProps,
+} from "../../domain/entities/Restaurante";
+import { IRestauranteRepository } from "../../domain/repositories/IRestauranteRepository";
 
 export class RestauranteRepositoryInMemory implements IRestauranteRepository {
   private readonly restaurantes: Map<string, Restaurante> = new Map();
@@ -37,7 +37,7 @@ export class RestauranteRepositoryInMemory implements IRestauranteRepository {
 
   // CREATE - Usando Callbacks
   crear(
-    data: RestauranteCreate,
+    data: RestauranteCreateProps,
     callback: (error: Error | null, resultado: Restaurante | null) => void
   ): void {
     try {
@@ -60,7 +60,7 @@ export class RestauranteRepositoryInMemory implements IRestauranteRepository {
     }
   }
 
-  actualizar(id: string, data: RestauranteUpdate): Promise<Restaurante> {
+  actualizar(id: string, data: RestauranteUpdateProps): Promise<Restaurante> {
     const restauranteExistente = this.restaurantes.get(id);
     if (!restauranteExistente) {
       throw new Error(`Restaurante con ID ${id} no encontrado`);

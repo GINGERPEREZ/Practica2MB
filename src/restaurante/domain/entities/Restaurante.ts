@@ -10,6 +10,29 @@ export interface Restaurante {
   eliminado?: boolean | null;
 }
 
+// Tipos de dominio para crear y actualizar restaurantes
+export type RestauranteCreateProps = {
+  nombre: string;
+  descripcion: string;
+  ubicacion: string;
+  horariosAtencion: string;
+  capacidadTotal: number;
+  suscripcionId?: string | null;
+  imagenId?: string | null;
+  eliminado?: boolean | null;
+};
+
+export type RestauranteUpdateProps = {
+  nombre?: string;
+  descripcion?: string;
+  ubicacion?: string;
+  horariosAtencion?: string;
+  capacidadTotal?: number;
+  suscripcionId?: string | null;
+  imagenId?: string | null;
+  eliminado?: boolean | null;
+};
+
 export class RestauranteEntity {
   public readonly id: string;
   public nombre: string;
@@ -21,19 +44,7 @@ export class RestauranteEntity {
   public eliminado?: boolean | null;
   public imagenId?: string | null;
 
-  constructor(
-    id: string,
-    props: {
-      nombre: string;
-      descripcion: string;
-      ubicacion: string;
-      horariosAtencion: string;
-      capacidadTotal: number;
-      suscripcionId?: string | null;
-      imagenId?: string | null;
-      eliminado?: boolean | null;
-    }
-  ) {
+  constructor(id: string, props: RestauranteCreateProps) {
     this.id = id;
     this.nombre = props.nombre;
     this.descripcion = props.descripcion;
